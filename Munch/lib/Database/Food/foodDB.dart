@@ -1,4 +1,4 @@
-import 'food.dart';
+import '../Food/food.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -72,4 +72,5 @@ class FoodDatabase {
     Database db = await instance.database;
     return await db.delete(table, where: '$columnFoodId = ?', whereArgs: [id]);
   }
+
 }

@@ -1,42 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:munch/Database/foodDB.dart';
-import 'package:munch/Database/food.dart';
+import 'package:munch/Database/Food/foodDB.dart';
+import 'package:munch/Database/Food/food.dart';
 import 'foodCard.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final dbHelper = FoodDatabase.instance;
-  List<Food> food = [];
-  // final List<Map<String, String>> popularFood = [
-  //   {
-  //     'name': 'Bat Soup',
-  //     'price': '1.00',
-  //     'rate': '5',
-  //     'clients': '20,000',
-  //     'image': 'assets/images/BatSoup.jpeg'
-  //   },
-  //   {
-  //     'name': 'Bat Soup',
-  //     'price': '1.00',
-  //     'rate': '5',
-  //     'clients': '20,000',
-  //     'image': 'assets/images/BatSoup.jpeg'
-  //   },
-  //   {
-  //     'name': 'Bat Soup',
-  //     'price': '1.00',
-  //     'rate': '5',
-  //     'clients': '20,000',
-  //     'image': 'assets/images/BatSoup.jpeg'
-  //   },
-  //   {
-  //     'name': 'Bat Soup',
-  //     'price': '1.00',
-  //     'rate': '5',
-  //     'clients': '20,000',
-  //     'image': 'assets/images/BatSoup.jpeg'
-  //   },
-  // ];
+
+  List<Map<String, dynamic>> food = [];
+  List<Food> placeHolder = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _queryAll();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -125,8 +108,8 @@ class Home extends StatelessWidget {
               child: ListView.builder(
                 padding: EdgeInsets.only(left: 10.0),
                 scrollDirection: Axis.horizontal,
-                itemCount: 1,
-                itemBuilder: (context, int index) {
+                itemCount: placeHolder.length,
+                itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {},
                     child: Hero(
@@ -134,11 +117,11 @@ class Home extends StatelessWidget {
                       child: FoodCard(
                         width: size.width / 2 - 30.0,
                         primaryColor: theme.primaryColor,
-                        productName: food[0].name!,
-                        productPrice: food[0].price.toString(),
-                        productUrl: food[0].url!,
-                        productClients: food[0].clients.toString(),
-                        productRate: food[0].rate.toString(),
+                        productName: placeHolder[index].name!,
+                        productPrice: placeHolder[index].price.toString(),
+                        productUrl: placeHolder[index].url!,
+                        productClients: placeHolder[index].clients.toString(),
+                        productRate: placeHolder[index].rate.toString(),
                       ),
                     ),
                   );
@@ -288,6 +271,7 @@ class Home extends StatelessWidget {
       ),
     );
   }
+
   void _insert(url, name, price, rate, clients) async {
     Map<String, dynamic> row = {
       FoodDatabase.columnUrl: url,
@@ -302,7 +286,7 @@ class Home extends StatelessWidget {
 
   void _queryAll() async {
     final allRows = await dbHelper.queryAllRows();
-    food.clear();
-    allRows.forEach((row) => food.add(Food.fromMap(row)));
+    placeHolder = allRows.map((item) => Food.fromMap(item)).toList();
+    setState(() {});
   }
 }

@@ -1,4 +1,4 @@
-import 'foodDB.dart';
+import '../Food/foodDB.dart';
 
 class Food {
   int? foodId;
