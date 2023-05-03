@@ -1,38 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:munch/Database/foodDB.dart';
+import 'package:munch/Database/food.dart';
 import 'foodCard.dart';
 
 class Home extends StatelessWidget {
-  final List<Map<String, String>> popularFood = [
-    {
-      'name': 'Bat Soup',
-      'price': '1.00',
-      'rate': '5',
-      'clients': '20,000',
-      'image': 'assets/images/BatSoup.jpeg'
-    },
-    {
-      'name': 'Bat Soup',
-      'price': '1.00',
-      'rate': '5',
-      'clients': '20,000',
-      'image': 'assets/images/BatSoup.jpeg'
-    },
-    {
-      'name': 'Bat Soup',
-      'price': '1.00',
-      'rate': '5',
-      'clients': '20,000',
-      'image': 'assets/images/BatSoup.jpeg'
-    },
-    {
-      'name': 'Bat Soup',
-      'price': '1.00',
-      'rate': '5',
-      'clients': '20,000',
-      'image': 'assets/images/BatSoup.jpeg'
-    },
-  ];
+  final dbHelper = FoodDatabase.instance;
+  List<Food> food = [];
+  // final List<Map<String, String>> popularFood = [
+  //   {
+  //     'name': 'Bat Soup',
+  //     'price': '1.00',
+  //     'rate': '5',
+  //     'clients': '20,000',
+  //     'image': 'assets/images/BatSoup.jpeg'
+  //   },
+  //   {
+  //     'name': 'Bat Soup',
+  //     'price': '1.00',
+  //     'rate': '5',
+  //     'clients': '20,000',
+  //     'image': 'assets/images/BatSoup.jpeg'
+  //   },
+  //   {
+  //     'name': 'Bat Soup',
+  //     'price': '1.00',
+  //     'rate': '5',
+  //     'clients': '20,000',
+  //     'image': 'assets/images/BatSoup.jpeg'
+  //   },
+  //   {
+  //     'name': 'Bat Soup',
+  //     'price': '1.00',
+  //     'rate': '5',
+  //     'clients': '20,000',
+  //     'image': 'assets/images/BatSoup.jpeg'
+  //   },
+  // ];
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +49,7 @@ class Home extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                 top: 20.0,
                 left: 20.0,
                 right: 20.0,
@@ -95,6 +99,16 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
+            Container(
+              width: 165,
+              child: ElevatedButton(
+                onPressed: () {
+                  _insert('assets/images/BatSoup.jpeg', 'BatSoup', 9.99, 4.21, 20);
+                  _queryAll();
+                },
+                child: Text('ADD'),
+              ),
+            ),
             Padding(
               padding: EdgeInsets.only(
                 top: 25.0,
@@ -109,11 +123,10 @@ class Home extends StatelessWidget {
             Container(
               height: 220.0,
               child: ListView.builder(
-                padding: const EdgeInsets.only(left: 10.0),
+                padding: EdgeInsets.only(left: 10.0),
                 scrollDirection: Axis.horizontal,
-                itemCount: this.popularFood.length,
-                itemBuilder: (context, index) {
-                  Map<String, String> product = this.popularFood[index];
+                itemCount: 1,
+                itemBuilder: (context, int index) {
                   return GestureDetector(
                     onTap: () {},
                     child: Hero(
@@ -121,11 +134,11 @@ class Home extends StatelessWidget {
                       child: FoodCard(
                         width: size.width / 2 - 30.0,
                         primaryColor: theme.primaryColor,
-                        productName: product['name']!,
-                        productPrice: product['price']!,
-                        productUrl: product['image']!,
-                        productClients: product['clients']!,
-                        productRate: product['rate']!,
+                        productName: food[0].name!,
+                        productPrice: food[0].price.toString(),
+                        productUrl: food[0].url!,
+                        productClients: food[0].clients.toString(),
+                        productRate: food[0].rate.toString(),
                       ),
                     ),
                   );
@@ -133,7 +146,7 @@ class Home extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
+              padding: EdgeInsets.only(
                 left: 20.0,
                 bottom: 10.0,
                 top: 35.0,
@@ -154,16 +167,16 @@ class Home extends StatelessWidget {
                 };
                 Navigator.pushNamed(context, 'details', arguments: {
                   'product': localProduct,
-                  'index': this.popularFood.length
+                  'index': food.length
                 });
               },
               child: Hero(
-                tag: 'detail_food${this.popularFood.length}',
+                tag: 'detail_food${food.length}',
                 child: Container(
                   width: size.width - 40,
                   color: Colors.white,
-                  padding: const EdgeInsets.only(bottom: 10.0),
-                  margin: const EdgeInsets.only(
+                  padding: EdgeInsets.only(bottom: 10.0),
+                  margin: EdgeInsets.only(
                     left: 20.0,
                     right: 20.0,
                     bottom: 15.0,
@@ -186,9 +199,9 @@ class Home extends StatelessWidget {
                           ),
                           Container(
                             alignment: Alignment.topRight,
-                            margin: const EdgeInsets.all(10.0),
+                            margin: EdgeInsets.all(10.0),
                             child: Container(
-                              padding: const EdgeInsets.all(8.0),
+                              padding: EdgeInsets.all(8.0),
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.white,
@@ -203,7 +216,7 @@ class Home extends StatelessWidget {
                         ],
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
+                        padding: EdgeInsets.only(
                           top: 10.0,
                           bottom: 4.0,
                           left: 10.0,
@@ -220,7 +233,7 @@ class Home extends StatelessWidget {
                               ),
                             ),
                             Container(
-                              padding: const EdgeInsets.all(4.0),
+                              padding: EdgeInsets.all(4.0),
                               decoration: BoxDecoration(
                                   color: Colors.white,
                                   shape: BoxShape.circle,
@@ -241,7 +254,7 @@ class Home extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
+                        padding: EdgeInsets.only(
                           top: 5.0,
                           left: 10.0,
                           right: 10.0,
@@ -274,5 +287,22 @@ class Home extends StatelessWidget {
         ),
       ),
     );
+  }
+  void _insert(url, name, price, rate, clients) async {
+    Map<String, dynamic> row = {
+      FoodDatabase.columnUrl: url,
+      FoodDatabase.columnName: name,
+      FoodDatabase.columnPrice: price,
+      FoodDatabase.columnRate: rate,
+      FoodDatabase.columnClients: clients
+    };
+    Food food = Food.fromMap(row);
+    final id = await dbHelper.insert(food);
+  }
+
+  void _queryAll() async {
+    final allRows = await dbHelper.queryAllRows();
+    food.clear();
+    allRows.forEach((row) => food.add(Food.fromMap(row)));
   }
 }

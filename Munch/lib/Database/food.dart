@@ -26,7 +26,7 @@ class Food {
       FoodDatabase.columnName: name,
       FoodDatabase.columnPrice: price,
       FoodDatabase.columnRate: rate,
-      FoodDatabase.columnClients: clients,
+      FoodDatabase.columnClients: clients
     };
   }
 }

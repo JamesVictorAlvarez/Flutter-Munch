@@ -17,7 +17,7 @@ class App extends StatelessWidget {
         bottomNavigationBar: Material(
           color: Colors.white,
           child: TabBar(
-            labelPadding: const EdgeInsets.only(bottom: 10),
+            labelPadding: EdgeInsets.only(bottom: 10),
             labelStyle: TextStyle(fontSize: 16.0),
             indicatorColor: Colors.transparent,
             labelColor: theme.primaryColor,
