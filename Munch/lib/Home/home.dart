@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:munch/Database/Food/foodDB.dart';
 import 'package:munch/Database/Food/food.dart';
+import 'package:munch/auth.dart';
 import 'foodCard.dart';
 
 class Home extends StatefulWidget {
@@ -19,6 +20,10 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
     _queryAll();
+  }
+
+  Future<void> signOut() async {
+    await Auth().signOut();
   }
 
   @override
@@ -259,6 +264,14 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                           ],
+                        ),
+                      ),
+                      Container(
+                        width: 165,
+                        child: ElevatedButton(
+                          onPressed:
+                          signOut,
+                          child: Text('Sign Out'),
                         ),
                       ),
                     ],
