@@ -91,7 +91,7 @@ class FoodCard extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  '\$ $productPrice',
+                  '$productPrice\$ ',
                   style: TextStyle(
                     fontSize: 13.0,
                   ),

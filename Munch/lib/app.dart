@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Home/home.dart';
 import 'Cart/cart.dart';
+import 'Settings/settings.dart';
 
 class App extends StatelessWidget {
   @override
@@ -8,12 +9,13 @@ class App extends StatelessWidget {
     ThemeData theme = Theme.of(context);
 
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         body: TabBarView(
           children: <Widget>[
             Home(),
             Cart(),
+            Settings(),
           ],
         ),
         bottomNavigationBar: Material(
@@ -32,6 +34,10 @@ class App extends StatelessWidget {
               Tab(
                 icon: Icon(Icons.shopping_cart, size: 28),
                 text: 'Cart',
+              ),
+              Tab(
+                icon: Icon(Icons.settings, size: 28),
+                text: 'Settings',
               ),
             ],
           ),

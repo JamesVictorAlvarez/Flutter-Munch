@@ -22,10 +22,6 @@ class _HomeState extends State<Home> {
     _queryAll();
   }
 
-  Future<void> signOut() async {
-    await Auth().signOut();
-  }
-
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -58,6 +54,8 @@ class _HomeState extends State<Home> {
             Padding(
               padding: EdgeInsets.only(
                 top: 25.0,
+                left: 20.0,
+                right: 20.0,
               ),
               child: TextField(
                 keyboardType: TextInputType.text,
@@ -91,7 +89,8 @@ class _HomeState extends State<Home> {
               width: 165,
               child: ElevatedButton(
                 onPressed: () {
-                  _insert('assets/images/BatSoup.jpeg', 'BatSoup', 9.99, 4.21, 20);
+                  _insert(
+                      'assets/images/BatSoup.jpeg', 'BatSoup', 9.99, 4.21, 20);
                   _queryAll();
                 },
                 child: Text('ADD'),
@@ -116,7 +115,29 @@ class _HomeState extends State<Home> {
                 itemCount: placeHolder.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                                title: Text(placeHolder[index].name!),
+                                content: Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * 0.3,
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.5,
+                                  decoration: BoxDecoration(
+                                      image: DecorationImage(
+                                          image: AssetImage(
+                                              placeHolder[index].url!))),
+                                  child: Text('${placeHolder[index].price}\$'),
+                                ),
+                                actions: [
+                                  TextButton(
+                                      onPressed: () {},
+                                      child: Text('Add to cart'))
+                                ],
+                              ));
+                    },
                     child: Hero(
                       tag: 'detail_food$index',
                       child: FoodCard(
@@ -153,10 +174,8 @@ class _HomeState extends State<Home> {
                   'clients': '150',
                   'image': 'assets/images/BatSoup.jpeg'
                 };
-                Navigator.pushNamed(context, 'details', arguments: {
-                  'product': localProduct,
-                  'index': food.length
-                });
+                Navigator.pushNamed(context, 'details',
+                    arguments: {'product': localProduct, 'index': food.length});
               },
               child: Hero(
                 tag: 'detail_food${food.length}',
@@ -258,20 +277,12 @@ class _HomeState extends State<Home> {
                               ),
                             ),
                             Text(
-                              '\$ 26.00',
+                              '26.00\$ ',
                               style: TextStyle(
                                 fontSize: 16.0,
                               ),
                             ),
                           ],
-                        ),
-                      ),
-                      Container(
-                        width: 165,
-                        child: ElevatedButton(
-                          onPressed:
-                          signOut,
-                          child: Text('Sign Out'),
                         ),
                       ),
                     ],
