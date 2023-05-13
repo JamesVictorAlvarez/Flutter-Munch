@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:munch/Database/Food/foodDB.dart';
+import 'package:munch/Database/CartDatabase/cartDB.dart';
+import 'package:munch/Database/CartDatabase/cartModel.dart';
 import 'package:munch/Database/Food/food.dart';
 import 'package:munch/auth.dart';
 import 'foodCard.dart';
@@ -12,9 +14,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   final dbHelper = FoodDatabase.instance;
+  final dbCartHelper = CartDatabase.instance;
 
   List<Map<String, dynamic>> food = [];
-  List<Food> placeHolder = [];
+  List<Food> foodList = [];
 
   @override
   void initState() {
@@ -45,7 +48,7 @@ class _HomeState extends State<Home> {
                     'Munch',
                     style: TextStyle(
                       fontSize: 30.0,
-                      color: Colors.red,
+                      color: Color(0xFFE85852),
                     ),
                   ),
                 ],
@@ -112,14 +115,14 @@ class _HomeState extends State<Home> {
               child: ListView.builder(
                 padding: EdgeInsets.only(left: 10.0),
                 scrollDirection: Axis.horizontal,
-                itemCount: placeHolder.length,
+                itemCount: foodList.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
                     onTap: () {
                       showDialog(
                           context: context,
                           builder: (context) => AlertDialog(
-                                title: Text(placeHolder[index].name!),
+                                title: Text(foodList[index].name!),
                                 content: Container(
                                   height:
                                       MediaQuery.of(context).size.height * 0.3,
@@ -128,13 +131,24 @@ class _HomeState extends State<Home> {
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
                                           image: AssetImage(
-                                              placeHolder[index].url!))),
-                                  child: Text('${placeHolder[index].price}\$'),
+                                              foodList[index].url!))),
+                                  child: Text('${foodList[index].price}\$'),
                                 ),
                                 actions: [
                                   TextButton(
-                                      onPressed: () {},
-                                      child: Text('Add to cart'))
+                                      onPressed: () {
+                                        _insertCart(
+                                            foodList[index].url,
+                                            foodList[index].name,
+                                            foodList[index].price,
+                                            foodList[index].rate,
+                                            foodList[index].clients);
+                                      },
+                                      child: Text(
+                                        'Add to cart',
+                                        style:
+                                            TextStyle(color: Color(0xFFE85852)),
+                                      ))
                                 ],
                               ));
                     },
@@ -143,11 +157,11 @@ class _HomeState extends State<Home> {
                       child: FoodCard(
                         width: size.width / 2 - 30.0,
                         primaryColor: theme.primaryColor,
-                        productName: placeHolder[index].name!,
-                        productPrice: placeHolder[index].price.toString(),
-                        productUrl: placeHolder[index].url!,
-                        productClients: placeHolder[index].clients.toString(),
-                        productRate: placeHolder[index].rate.toString(),
+                        productName: foodList[index].name!,
+                        productPrice: foodList[index].price.toString(),
+                        productUrl: foodList[index].url!,
+                        productClients: foodList[index].clients.toString(),
+                        productRate: foodList[index].rate.toString(),
                       ),
                     ),
                   );
@@ -308,9 +322,21 @@ class _HomeState extends State<Home> {
     final id = await dbHelper.insert(food);
   }
 
+  void _insertCart(url, name, price, rate, clients) async {
+    Map<String, dynamic> row = {
+      CartDatabase.columnUrl: url,
+      CartDatabase.columnName: name,
+      CartDatabase.columnPrice: price,
+      CartDatabase.columnRate: rate,
+      CartDatabase.columnClients: clients
+    };
+    CartModel cart = CartModel.fromMap(row);
+    final id = await dbCartHelper.insert(cart);
+  }
+
   void _queryAll() async {
     final allRows = await dbHelper.queryAllRows();
-    placeHolder = allRows.map((item) => Food.fromMap(item)).toList();
+    foodList = allRows.map((item) => Food.fromMap(item)).toList();
     setState(() {});
   }
 }

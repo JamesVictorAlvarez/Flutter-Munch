@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:munch/header.dart';
+import 'package:munch/Database/CartDatabase/cartDB.dart';
+import 'package:munch/Database/CartDatabase/cartModel.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -7,23 +9,10 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> with TickerProviderStateMixin {
+  final dbHelper = CartDatabase.instance;
+
   TabController? _tabController;
-  final List<Map<String, String>> foods = [
-    {
-      'name': 'Rice and meat',
-      'price': '130.00',
-      'rate': '4.8',
-      'clients': '150',
-      'image': 'images/plate-003.png'
-    },
-    {
-      'name': 'Vegan food',
-      'price': '400.00',
-      'rate': '4.2',
-      'clients': '150',
-      'image': 'images/plate-007.png'
-    },
-  ];
+  List<CartModel> foodList = [];
 
   @override
   void initState() {
@@ -33,27 +22,41 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
       vsync: this,
     );
     super.initState();
+    _queryAll();
+  }
+
+  void _queryAll() async {
+    final allRows = await dbHelper.queryAllRows();
+    foodList = allRows.map((item) => CartModel.fromMap(item)).toList();
+    setState(() {});
+  }
+
+  void _delete(id) async {
+    final rowsDeleted = await dbHelper.delete(id);
+    _queryAll();
+  }
+
+  void _insert(url, name, price, rate, clients) async {
+    Map<String, dynamic> row = {
+      CartDatabase.columnUrl: url,
+      CartDatabase.columnName: name,
+      CartDatabase.columnPrice: price,
+      CartDatabase.columnRate: rate,
+      CartDatabase.columnClients: clients
+    };
+    CartModel cart = CartModel.fromMap(row);
+    final id = await dbHelper.insert(cart);
   }
 
   Widget renderAddList() {
     return ListView.builder(
-      itemCount: this.foods.length,
+      itemCount: foodList.length,
       itemBuilder: (BuildContext context, int index) {
-        Map<String, String> food = foods[index];
         Color primaryColor = Theme.of(context).primaryColor;
         return Container(
-          margin: const EdgeInsets.only(bottom: 10.0),
+          margin: EdgeInsets.only(bottom: 10.0),
           child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                'details',
-                arguments: {
-                  'product': food,
-                  'index': index,
-                },
-              );
-            },
+            onTap: () {},
             child: Hero(
               tag: 'detail_food$index',
               child: Card(
@@ -63,14 +66,14 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
-                        // image: DecorationImage(
-                        //   image: AssetImage(food['image']),
-                        // ),
+                        image: DecorationImage(
+                          image: AssetImage(foodList[index].url!),
+                        ),
                       ),
                     ),
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                        padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -78,26 +81,29 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                // Text(food['name']),
-                                Icon(Icons.delete_outline)
+                                Text(foodList[index].name!),
+                                IconButton(
+                                    onPressed: () =>
+                                        _delete(foodList[index].cartId),
+                                    icon: Icon(Icons.delete_outline)),
                               ],
                             ),
-                            Text('\$${food['price']}'),
+                            Text('${foodList[index].price}\$'),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.end,
                               children: <Widget>[
                                 Icon(Icons.remove),
                                 Container(
                                   color: primaryColor,
-                                  margin: const EdgeInsets.symmetric(
+                                  margin: EdgeInsets.symmetric(
                                     horizontal: 10.0,
                                   ),
-                                  padding: const EdgeInsets.symmetric(
+                                  padding: EdgeInsets.symmetric(
                                     vertical: 3.0,
                                     horizontal: 12.0,
                                   ),
                                   child: Text(
-                                    'Add To 2',
+                                    '${foodList[index].rate!.toString()} stars',
                                     style: TextStyle(
                                       color: Colors.white,
                                     ),
@@ -125,23 +131,13 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
 
   Widget renderTracking() {
     return ListView.builder(
-      itemCount: this.foods.length,
+      itemCount: foodList.length,
       itemBuilder: (BuildContext context, int index) {
-        Map<String, String> food = foods[index];
         Color primaryColor = Theme.of(context).primaryColor;
         return Container(
           margin: const EdgeInsets.only(bottom: 10.0),
           child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                'details',
-                arguments: {
-                  'product': food,
-                  'index': index,
-                },
-              );
-            },
+            onTap: () {},
             child: Hero(
               tag: 'detail_food$index',
               child: Card(
@@ -151,9 +147,9 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
-                        // image: DecorationImage(
-                        //   image: AssetImage(food['image']),
-                        // ),
+                        image: DecorationImage(
+                          image: AssetImage(foodList[index].url!),
+                        ),
                       ),
                     ),
                     Expanded(
@@ -164,11 +160,13 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 5.0),
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: <Widget>[
-                                  // Text(food['name']),
+                                  // Text(cart['name']),
                                   Text(
                                     'Item-2',
                                     style: TextStyle(color: primaryColor),
@@ -176,7 +174,7 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                                 ],
                               ),
                             ),
-                            Text('\$${food['price']}'),
+                            Text('${foodList[index].price}\$'),
                             Padding(
                               padding: const EdgeInsets.only(top: 8.0),
                               child: Text(
@@ -200,23 +198,13 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
 
   Widget renderDoneOrder() {
     return ListView.builder(
-      itemCount: this.foods.length,
+      itemCount: foodList.length,
       itemBuilder: (BuildContext context, int index) {
-        Map<String, String> food = foods[index];
         Color primaryColor = Theme.of(context).primaryColor;
         return Container(
           margin: const EdgeInsets.only(bottom: 10.0),
           child: GestureDetector(
-            onTap: () {
-              Navigator.pushNamed(
-                context,
-                'details',
-                arguments: {
-                  'product': food,
-                  'index': index,
-                },
-              );
-            },
+            onTap: () {},
             child: Hero(
               tag: 'detail_food$index',
               child: Card(
@@ -226,9 +214,9 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                       height: 100,
                       width: 100,
                       decoration: BoxDecoration(
-                        // image: DecorationImage(
-                        //   image: AssetImage(food['image']),
-                        // ),
+                        image: DecorationImage(
+                          image: AssetImage(foodList[index].url!),
+                        ),
                       ),
                     ),
                     Expanded(
@@ -239,16 +227,18 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
                             Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 5.0),
-                              // child: Text(food['name']),
+                              padding:
+                                  const EdgeInsets.symmetric(vertical: 5.0),
+                              // child: Text(cart['name']),
                             ),
-                            Text('\$${food['price']}'),
+                            Text('${foodList[index].price}\$'),
                             Padding(
                                 padding: const EdgeInsets.only(top: 8.0),
                                 child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
-                                    // Text(food['rate']),
+                                    // Text(cart['rate']),
                                     Text(
                                       'Give your review',
                                       style: TextStyle(
@@ -281,7 +271,7 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
         children: <Widget>[
           CustomHeader(
             title: 'Cart Food',
-            quantity: this.foods.length,
+            quantity: foodList.length,
             internalScreen: false,
           ),
           Container(
@@ -295,7 +285,7 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
               labelColor: Colors.black87,
               unselectedLabelColor: Colors.black87,
               tabs: <Widget>[
-                Tab(text: 'Add Food'),
+                Tab(text: 'Add Cart'),
                 Tab(text: 'Tracking Order'),
                 Tab(text: 'Done Order'),
               ],
@@ -333,7 +323,7 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                   Column(
                     children: <Widget>[
                       Container(
-                        height: size.height * 0.20 * this.foods.length,
+                        height: size.height * 0.20 * foodList.length,
                         width: size.width,
                         child: this.renderTracking(),
                       ),
