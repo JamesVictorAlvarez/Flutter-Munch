@@ -18,7 +18,22 @@ security. Most importantly, the app should contain minimum of 12 screen flows.
 
 ## User Page
 
-![](https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/user-login.png?raw=true | width=100)
+<p align="center">
+  <img width="200" src="https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/user-login.png"/>
+  <img width="200" src="https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/user-home.png"/>
+  <img width="200" src="https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/user-cart1.png"/>
+  <img width="200" src="https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/user-cart2.png"/>
+  <img width="200" src="https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/user-cart3.png"/>
+  <img width="200" src="https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/user-settings.png"/>
+</p>
+
+## Admin Page
+
+<p align="center">
+  <img width="200" src="https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/admin-login.png"/>
+  <img width="200" src="https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/admin-home.png"/>
+  <img width="200" src="https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/admin-settings.png"/>
+</p>
     
 ## How to use
 
