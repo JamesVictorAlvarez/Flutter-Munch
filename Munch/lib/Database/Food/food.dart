@@ -8,7 +8,7 @@ class Food {
   double? rate;
   int? clients;
 
-  Food(this.foodId, this.url, this.clients, this.name, this.price, this.rate);
+  Food(this.foodId, this.url, this.name, this.price, this.rate, this.clients);
 
   Food.fromMap(Map<String, dynamic> map) {
     foodId = map['foodId'];

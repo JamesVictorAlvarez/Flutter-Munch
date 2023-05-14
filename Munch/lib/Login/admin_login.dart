@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:munch/Admin/admin_home.dart';
+import '../widget_tree.dart';
 import 'login_register.dart';
 
 class AdminLogin extends StatefulWidget {
@@ -17,42 +18,6 @@ class _AdminLoginState extends State<AdminLogin> {
   final TextEditingController _passwordController = TextEditingController();
   final _user = 'admin';
   final _pass = '123';
-
-  // void signInWithEmailAndPassword() {
-  //   if (_emailController == null || _passwordController == null) {
-  //     setState(() {
-  //       errorMessage = 'All the fields must be filled';
-  //     });
-  //   }
-  //
-  //   if (_emailController == _user || _passwordController == _pass) {
-  //     setState(() {
-  //       errorMessage = 'Incorrect username or password';
-  //     });
-  //   }
-  // }
-
-  // Widget _errorMessage() {
-  //   return Text(errorMessage == '' ? '' : 'Humm ? $errorMessage');
-  // }
-
-  // Widget _submitButton() {
-  //   return Material(
-  //     borderRadius: BorderRadius.circular(8),
-  //     color: Color(0xFFE85852),
-  //     child: MaterialButton(
-  //       padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
-  //       minWidth: MediaQuery.of(context).size.width,
-  //       onPressed: signInWithEmailAndPassword,
-  //       child: Text('Login',
-  //           textAlign: TextAlign.center,
-  //           style: TextStyle(
-  //               fontSize: 20,
-  //               color: Colors.white,
-  //               fontWeight: FontWeight.bold)),
-  //     ),
-  //   );
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +137,7 @@ class _AdminLoginState extends State<AdminLogin> {
                       child: TextButton(
                         onPressed: () {
                           Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => Login()));
+                              MaterialPageRoute(builder: (context) => WidgetTree()));
                         },
                         child: Text(
                           'Back to Login',

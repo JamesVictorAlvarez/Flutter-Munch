@@ -88,17 +88,6 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            Container(
-              width: 165,
-              child: ElevatedButton(
-                onPressed: () {
-                  _insert(
-                      'assets/images/BatSoup.jpeg', 'BatSoup', 9.99, 4.21, 20);
-                  _queryAll();
-                },
-                child: Text('ADD'),
-              ),
-            ),
             Padding(
               padding: EdgeInsets.only(
                 top: 25.0,
