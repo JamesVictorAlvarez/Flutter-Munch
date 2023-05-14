@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:munch/Login/admin_login.dart';
 import '../auth.dart';
 
 class Login extends StatefulWidget {
@@ -45,13 +46,19 @@ class _LoginState extends State<Login> {
     return TextField(
       controller: controller,
       textInputAction: TextInputAction.next,
+      cursorColor: Colors.redAccent,
       decoration: InputDecoration(
         prefixIcon: Icon(Icons.mail),
+        prefixIconColor: Color(0xFFE85852),
         contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: title,
+        labelStyle: TextStyle(color: Color(0xFFE85852)),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
+        focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+            borderSide: BorderSide(width: 1.5, color: Colors.redAccent)),
       ),
     );
   }
@@ -131,22 +138,31 @@ class _LoginState extends State<Login> {
                         controller: _passwordController,
                         textInputAction: TextInputAction.next,
                         obscureText: _isObscure,
+                        cursorColor: Colors.redAccent,
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.lock),
+                            prefixIconColor: Color(0xFFE85852),
                             contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
                             labelText: "Password",
+                            labelStyle: TextStyle(color: Color(0xFFE85852)),
                             hintText: "Password",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                    width: 1.5, color: Colors.redAccent)),
                             suffixIcon: IconButton(
                                 icon: Icon(_isObscure
-                                    ? Icons.visibility : Icons.visibility_off),
+                                    ? Icons.visibility
+                                    : Icons.visibility_off),
                                 onPressed: () {
                                   setState(() {
                                     _isObscure = !_isObscure;
                                   });
-                                }))),
+                                }),
+                            suffixIconColor: Color(0xFFE85852))),
                     const SizedBox(height: 35),
                     _submitButton(),
                     SizedBox(height: 15),
@@ -165,6 +181,21 @@ class _LoginState extends State<Login> {
                       height: 10,
                     ),
                     _errorMessage(),
+                    Align(
+                      alignment: Alignment.bottomCenter,
+                      child: TextButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => AdminLogin())
+                          );
+                        },
+                        child: Text(
+                          'Admin Login',
+                          style: TextStyle(color: Color(0xFFE85852)),
+                        ),
+                      ),
+                    )
                   ]),
             ),
           ),
