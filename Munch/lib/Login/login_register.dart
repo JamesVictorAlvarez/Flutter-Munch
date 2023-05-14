@@ -48,17 +48,17 @@ class _LoginState extends State<Login> {
       textInputAction: TextInputAction.next,
       cursorColor: Colors.redAccent,
       decoration: InputDecoration(
-        prefixIcon: Icon(Icons.mail),
-        prefixIconColor: Color(0xFFE85852),
-        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        prefixIcon: const Icon(Icons.mail),
+        prefixIconColor: const Color(0xFFE85852),
+        contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         labelText: title,
-        labelStyle: TextStyle(color: Color(0xFFE85852)),
+        labelStyle: const TextStyle(color: Color(0xFFE85852)),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
         ),
         focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(10),
-            borderSide: BorderSide(width: 1.5, color: Colors.redAccent)),
+            borderSide: const BorderSide(width: 1.5, color: Colors.redAccent)),
       ),
     );
   }
@@ -70,16 +70,16 @@ class _LoginState extends State<Login> {
   Widget _submitButton() {
     return Material(
       borderRadius: BorderRadius.circular(8),
-      color: Color(0xFFE85852),
+      color: const Color(0xFFE85852),
       child: MaterialButton(
-        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
         minWidth: MediaQuery.of(context).size.width,
         onPressed: isLogin
             ? signInWithEmailAndPassword
             : createUserWithEmailAndPassword,
         child: Text(isLogin ? 'Login' : 'Sign Up',
             textAlign: TextAlign.center,
-            style: TextStyle(
+            style: const TextStyle(
                 fontSize: 20,
                 color: Colors.white,
                 fontWeight: FontWeight.bold)),
@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
       },
       child: Text(
         isLogin ? 'SignUp' : 'Login',
-        style: TextStyle(
+        style: const TextStyle(
             fontFamily: 'poppins',
             color: Color(0xFFE85852),
             fontWeight: FontWeight.w600,
@@ -107,7 +107,7 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    bool _isObscure = true;
+    bool isObscure = true;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -120,56 +120,51 @@ class _LoginState extends State<Login> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(
-                      height: 40,
-                      child: Text(
-                        'Munch',
-                        style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xFFE85852),
-                            fontSize: 35,
-                            fontWeight: FontWeight.w600),
-                      ),
+                    const SizedBox(
+                      height: 100,
+                      child: Image(
+                          image: AssetImage('assets/images/banner.png')
+                      )
                     ),
-                    SizedBox(height: 14),
+                    const SizedBox(height: 14),
                     _entryField('Email', _emailController),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     TextField(
                         controller: _passwordController,
                         textInputAction: TextInputAction.next,
-                        obscureText: _isObscure,
+                        obscureText: isObscure,
                         cursorColor: Colors.redAccent,
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            prefixIconColor: Color(0xFFE85852),
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            prefixIcon: const Icon(Icons.lock),
+                            prefixIconColor: const Color(0xFFE85852),
+                            contentPadding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             labelText: "Password",
-                            labelStyle: TextStyle(color: Color(0xFFE85852)),
+                            labelStyle: const TextStyle(color: Color(0xFFE85852)),
                             hintText: "Password",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1.5, color: Colors.redAccent)),
                             suffixIcon: IconButton(
-                                icon: Icon(_isObscure
+                                icon: Icon(isObscure
                                     ? Icons.visibility
                                     : Icons.visibility_off),
                                 onPressed: () {
                                   setState(() {
-                                    _isObscure = !_isObscure;
+                                    isObscure = !isObscure;
                                   });
                                 }),
-                            suffixIconColor: Color(0xFFE85852))),
+                            suffixIconColor: const Color(0xFFE85852))),
                     const SizedBox(height: 35),
                     _submitButton(),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        Text(
+                        const Text(
                           "Don't have an Account? ",
                           style: TextStyle(fontFamily: 'poppins'),
                         ),
@@ -177,7 +172,7 @@ class _LoginState extends State<Login> {
                             onTap: () {}, child: _loginOrRegisterButton()),
                       ],
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     _errorMessage(),
@@ -190,7 +185,7 @@ class _LoginState extends State<Login> {
                               MaterialPageRoute(builder: (context) => AdminLogin())
                           );
                         },
-                        child: Text(
+                        child: const Text(
                           'Admin Login',
                           style: TextStyle(color: Color(0xFFE85852)),
                         ),

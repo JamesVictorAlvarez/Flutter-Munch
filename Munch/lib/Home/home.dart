@@ -4,10 +4,11 @@ import 'package:munch/Database/Food/foodDB.dart';
 import 'package:munch/Database/CartDatabase/cartDB.dart';
 import 'package:munch/Database/CartDatabase/cartModel.dart';
 import 'package:munch/Database/Food/food.dart';
-import 'package:munch/auth.dart';
 import 'foodCard.dart';
 
 class Home extends StatefulWidget {
+  const Home({super.key});
+
   @override
   State<Home> createState() => _HomeState();
 }
@@ -36,14 +37,14 @@ class _HomeState extends State<Home> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: 20.0,
                 left: 20.0,
                 right: 20.0,
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
+                children: const <Widget>[
                   Text(
                     'Munch',
                     style: TextStyle(
@@ -55,7 +56,7 @@ class _HomeState extends State<Home> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(
+              padding: const EdgeInsets.only(
                 top: 25.0,
                 left: 20.0,
                 right: 20.0,
@@ -63,7 +64,7 @@ class _HomeState extends State<Home> {
               child: TextField(
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
+                  enabledBorder: const OutlineInputBorder(
                     borderSide: BorderSide(color: Colors.black, width: 1.0),
                   ),
                   focusedBorder: OutlineInputBorder(
@@ -88,7 +89,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(
                 top: 25.0,
                 left: 20.0,
@@ -99,10 +100,10 @@ class _HomeState extends State<Home> {
                 style: TextStyle(fontSize: 21.0),
               ),
             ),
-            Container(
+            SizedBox(
               height: 220.0,
               child: ListView.builder(
-                padding: EdgeInsets.only(left: 10.0),
+                padding: const EdgeInsets.only(left: 10.0),
                 scrollDirection: Axis.horizontal,
                 itemCount: foodList.length,
                 itemBuilder: (context, index) {
@@ -133,7 +134,7 @@ class _HomeState extends State<Home> {
                                             foodList[index].rate,
                                             foodList[index].clients);
                                       },
-                                      child: Text(
+                                      child: const Text(
                                         'Add to cart',
                                         style:
                                             TextStyle(color: Color(0xFFE85852)),
@@ -157,7 +158,7 @@ class _HomeState extends State<Home> {
                 },
               ),
             ),
-            Padding(
+            const Padding(
               padding: EdgeInsets.only(
                 left: 20.0,
                 bottom: 10.0,
@@ -185,8 +186,8 @@ class _HomeState extends State<Home> {
                 child: Container(
                   width: size.width - 40,
                   color: Colors.white,
-                  padding: EdgeInsets.only(bottom: 10.0),
-                  margin: EdgeInsets.only(
+                  padding: const EdgeInsets.only(bottom: 10.0),
+                  margin: const EdgeInsets.only(
                     left: 20.0,
                     right: 20.0,
                     bottom: 15.0,
@@ -198,7 +199,7 @@ class _HomeState extends State<Home> {
                           Container(
                             height: size.width - 40,
                             width: size.width - 40,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               borderRadius: BorderRadius.all(
                                 Radius.circular(5.0),
                               ),
@@ -209,10 +210,10 @@ class _HomeState extends State<Home> {
                           ),
                           Container(
                             alignment: Alignment.topRight,
-                            margin: EdgeInsets.all(10.0),
+                            margin: const EdgeInsets.all(10.0),
                             child: Container(
-                              padding: EdgeInsets.all(8.0),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(8.0),
+                              decoration: const BoxDecoration(
                                 shape: BoxShape.circle,
                                 color: Colors.white,
                               ),
@@ -226,7 +227,7 @@ class _HomeState extends State<Home> {
                         ],
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           top: 10.0,
                           bottom: 4.0,
                           left: 10.0,
@@ -236,15 +237,15 @@ class _HomeState extends State<Home> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            Text(
+                            const Text(
                               'The number one!',
                               style: TextStyle(
                                 fontSize: 18.0,
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.all(4.0),
-                              decoration: BoxDecoration(
+                              padding: const EdgeInsets.all(4.0),
+                              decoration: const BoxDecoration(
                                   color: Colors.white,
                                   shape: BoxShape.circle,
                                   boxShadow: [
@@ -264,7 +265,7 @@ class _HomeState extends State<Home> {
                         ),
                       ),
                       Padding(
-                        padding: EdgeInsets.only(
+                        padding: const EdgeInsets.only(
                           top: 5.0,
                           left: 10.0,
                           right: 10.0,
@@ -279,7 +280,7 @@ class _HomeState extends State<Home> {
                                 color: Colors.grey[400],
                               ),
                             ),
-                            Text(
+                            const Text(
                               '26.00\$ ',
                               style: TextStyle(
                                 fontSize: 16.0,

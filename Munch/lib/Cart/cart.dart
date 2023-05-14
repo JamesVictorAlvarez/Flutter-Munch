@@ -159,20 +159,15 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(vertical: 5.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: <Widget>[
-                                  // Text(cart['name']),
-                                  Text(
-                                    'Item-2',
-                                    style: TextStyle(color: primaryColor),
-                                  ),
-                                ],
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: <Widget>[
+                                Text(foodList[index].name!),
+                                Text(
+                                  'Tracking Item',
+                                  style: TextStyle(color: primaryColor),
+                                ),
+                              ],
                             ),
                             Text('${foodList[index].price}\$'),
                             Padding(
@@ -322,9 +317,7 @@ class _CartState extends State<Cart> with TickerProviderStateMixin {
                   ),
                   Column(
                     children: <Widget>[
-                      Container(
-                        height: size.height * 0.20 * foodList.length,
-                        width: size.width,
+                      Expanded(
                         child: this.renderTracking(),
                       ),
                       Container(

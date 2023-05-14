@@ -1,30 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:munch/Database/Food/foodDB.dart';
-import 'package:munch/Database/Food/food.dart';
-import 'package:munch/auth.dart';
 
-class Settings extends StatefulWidget {
-  const Settings({super.key});
+import '../Login/admin_login.dart';
+
+class SettingsAdmin extends StatefulWidget {
+  const SettingsAdmin({super.key});
 
   @override
-  State<Settings> createState() => _SettingsState();
+  State<SettingsAdmin> createState() => _SettingsAdminState();
 }
 
-class _SettingsState extends State<Settings> {
-  final dbHelper = FoodDatabase.instance;
-  List<Food> placeHolder = [];
-
-  @override
-  void initState() {
-    super.initState();
-    _queryAll();
-  }
+class _SettingsAdminState extends State<SettingsAdmin> {
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: const Text('SettingsAdmin'),
         backgroundColor: const Color(0xFFE85852),
         automaticallyImplyLeading: false,
       ),
@@ -86,28 +77,24 @@ class _SettingsState extends State<Settings> {
             const SizedBox(height: 16),
             ListTile(
                 title: TextButton(
-              onPressed: signOut,
-              child: const Text(
-                'Sign Out',
-                style: TextStyle(
-                  color: Color(0xFFE85852),
-                  fontSize: 18,
-                ),
-              ),
-            )),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => const AdminLogin())
+                    );
+                  },
+                  child: const Text(
+                    'Sign Out',
+                    style: TextStyle(
+                      color: Color(0xFFE85852),
+                      fontSize: 18,
+                    ),
+                  ),
+                )),
           ],
         ),
       ),
     );
   }
-
-  Future<void> signOut() async {
-    await Auth().signOut();
-  }
-
-  void _queryAll() async {
-    final allRows = await dbHelper.queryAllRows();
-    placeHolder = allRows.map((item) => Food.fromMap(item)).toList();
-    setState(() {});
-  }
 }
+

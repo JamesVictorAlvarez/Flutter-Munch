@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:munch/Settings/settings.dart';
 import 'package:munch/Database/Food/food.dart';
 import 'package:munch/Database/Food/foodDB.dart';
+import '../Settings/settingsAdmin.dart';
 
 class AdminHome extends StatefulWidget {
   const AdminHome({super.key});
@@ -24,16 +24,16 @@ class _AdminHomeState extends State<AdminHome> {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return const DefaultTabController(
       length: 2,
       child: Scaffold(
         body: TabBarView(
           children: <Widget>[
-            const AdminFirstPage(),
-            Settings(),
+            AdminFirstPage(),
+            SettingsAdmin(),
           ],
         ),
-        bottomNavigationBar: const Material(
+        bottomNavigationBar: Material(
           color: Colors.white,
           child: TabBar(
             labelPadding: EdgeInsets.only(bottom: 10),

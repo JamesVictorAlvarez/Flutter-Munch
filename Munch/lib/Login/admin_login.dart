@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:munch/Admin/admin_home.dart';
 import '../widget_tree.dart';
-import 'login_register.dart';
 
 class AdminLogin extends StatefulWidget {
   const AdminLogin({Key? key}) : super(key: key);
@@ -21,7 +20,7 @@ class _AdminLoginState extends State<AdminLogin> {
 
   @override
   Widget build(BuildContext context) {
-    bool _isObscure = true;
+    bool isObscure = true;
     return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
@@ -34,73 +33,69 @@ class _AdminLoginState extends State<AdminLogin> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    SizedBox(
-                      height: 40,
-                      child: Text(
-                        'Admin Login',
-                        style: TextStyle(
-                            fontFamily: 'Montserrat',
-                            color: Color(0xFFE85852),
-                            fontSize: 35,
-                            fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    SizedBox(height: 14),
+                    const SizedBox(
+                        height: 100,
+                        child: Image(
+                            image: AssetImage('assets/images/banner.png'))),
+                    const SizedBox(height: 14),
                     TextField(
                       controller: _userController,
                       textInputAction: TextInputAction.next,
                       cursorColor: Colors.redAccent,
                       decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.account_circle),
-                        prefixIconColor: Color(0xFFE85852),
-                        contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        prefixIcon: const Icon(Icons.account_circle),
+                        prefixIconColor: const Color(0xFFE85852),
+                        contentPadding:
+                            const EdgeInsets.fromLTRB(20, 15, 20, 15),
                         labelText: 'Username',
-                        labelStyle: TextStyle(color: Color(0xFFE85852)),
+                        labelStyle: const TextStyle(color: Color(0xFFE85852)),
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                                 width: 1.5, color: Colors.redAccent)),
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     TextField(
                         controller: _passwordController,
                         textInputAction: TextInputAction.next,
-                        obscureText: _isObscure,
+                        obscureText: isObscure,
                         cursorColor: Colors.redAccent,
                         decoration: InputDecoration(
-                            prefixIcon: Icon(Icons.lock),
-                            prefixIconColor: Color(0xFFE85852),
-                            contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                            prefixIcon: const Icon(Icons.lock),
+                            prefixIconColor: const Color(0xFFE85852),
+                            contentPadding:
+                                const EdgeInsets.fromLTRB(20, 15, 20, 15),
                             labelText: "Password",
-                            labelStyle: TextStyle(color: Color(0xFFE85852)),
+                            labelStyle:
+                                const TextStyle(color: Color(0xFFE85852)),
                             hintText: "Password",
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                             ),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(
+                                borderSide: const BorderSide(
                                     width: 1.5, color: Colors.redAccent)),
                             suffixIcon: IconButton(
-                                icon: Icon(_isObscure
+                                icon: Icon(isObscure
                                     ? Icons.visibility
                                     : Icons.visibility_off),
                                 onPressed: () {
                                   setState(() {
-                                    _isObscure = !_isObscure;
+                                    isObscure = !isObscure;
                                   });
                                 }),
-                            suffixIconColor: Color(0xFFE85852))),
+                            suffixIconColor: const Color(0xFFE85852))),
                     const SizedBox(height: 35),
                     Material(
                       borderRadius: BorderRadius.circular(8),
-                      color: Color(0xFFE85852),
+                      color: const Color(0xFFE85852),
                       child: MaterialButton(
-                        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+                        padding: const EdgeInsets.fromLTRB(20, 15, 20, 15),
                         minWidth: MediaQuery.of(context).size.width,
                         onPressed: () {
                           if (_userController.value.text.isEmpty ||
@@ -113,15 +108,15 @@ class _AdminLoginState extends State<AdminLogin> {
                             setState(() {
                               errorMessage = 'Incorrect username or password';
                             });
-                          } else if ( _userController.text == _user ||
-                              _passwordController.text == _pass){
+                          } else if (_userController.text == _user ||
+                              _passwordController.text == _pass) {
                             Navigator.push(
                                 context,
-                                MaterialPageRoute(builder: (context) => AdminHome())
-                            );
+                                MaterialPageRoute(
+                                    builder: (context) => const AdminHome()));
                           }
                         },
-                        child: Text('Login',
+                        child: const Text('Login',
                             textAlign: TextAlign.center,
                             style: TextStyle(
                                 fontSize: 20,
@@ -129,17 +124,19 @@ class _AdminLoginState extends State<AdminLogin> {
                                 fontWeight: FontWeight.bold)),
                       ),
                     ),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Text(errorMessage == '' ? '' : 'Humm ? $errorMessage'),
-                    SizedBox(height: 15),
+                    const SizedBox(height: 15),
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: TextButton(
                         onPressed: () {
-                          Navigator.push(context,
-                              MaterialPageRoute(builder: (context) => WidgetTree()));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const WidgetTree()));
                         },
-                        child: Text(
+                        child: const Text(
                           'Back to Login',
                           style: TextStyle(color: Color(0xFFE85852)),
                         ),

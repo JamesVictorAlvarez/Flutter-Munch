@@ -5,7 +5,7 @@ import 'widget_tree.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -16,9 +16,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
         theme: ThemeData(
-        primaryColor: Color(0xFFE85852),
+        primaryColor: const Color(0xFFE85852),
       ),
-      home: WidgetTree(),
+      home: const WidgetTree(),
     );
   }
 }

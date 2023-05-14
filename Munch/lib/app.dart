@@ -4,6 +4,8 @@ import 'Cart/cart.dart';
 import 'Settings/settings.dart';
 
 class App extends StatelessWidget {
+  const App({super.key});
+
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
@@ -13,20 +15,20 @@ class App extends StatelessWidget {
       child: Scaffold(
         body: TabBarView(
           children: <Widget>[
-            Home(),
+            const Home(),
             Cart(),
-            Settings(),
+            const Settings(),
           ],
         ),
         bottomNavigationBar: Material(
           color: Colors.white,
           child: TabBar(
-            labelPadding: EdgeInsets.only(bottom: 10),
-            labelStyle: TextStyle(fontSize: 16.0),
+            labelPadding: const EdgeInsets.only(bottom: 10),
+            labelStyle: const TextStyle(fontSize: 16.0),
             indicatorColor: Colors.transparent,
             labelColor: theme.primaryColor,
             unselectedLabelColor: Colors.black54,
-            tabs: <Widget>[
+            tabs: const <Widget>[
               Tab(
                 icon: Icon(Icons.home, size: 28),
                 text: 'Home',
