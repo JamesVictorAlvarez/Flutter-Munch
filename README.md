@@ -3,7 +3,7 @@
 
 # Munch
 
-Application Development 2 final project. It's a online restaurant application based on flutter.
+Application Development 2 final project. It's a online restaurant application based on flutter. It has a user page interfaces and admin page interfaces. In user pages, they are to view all the menu and they're able to put those item in cart. In admin page, they have access to the menu database where they can add/remove/modify items in the menu. 
 
 ## Requirement for the project
 
@@ -15,6 +15,10 @@ options for the users should be sign-up, register/modify the profile, sign-in, l
 on home page, etc. User data should be validated and authenticated to provide
 security. Most importantly, the app should contain minimum of 12 screen flows.
 (As I'm doing this alone, it may vary.)
+
+## User Page
+
+![](https://github.com/JamesVictorAlvarez/flutter-munch/blob/main/Munch/assets/github-images/user-login.png?raw=true | width=100)
     
 ## How to use
 
