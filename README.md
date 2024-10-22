@@ -14,7 +14,6 @@ bank. Here, you have to create three different portals for various users. Then t
 options for the users should be sign-up, register/modify the profile, sign-in, landing
 on home page, etc. User data should be validated and authenticated to provide
 security. Most importantly, the app should contain minimum of 12 screen flows.
-(As I'm doing this alone, it may vary)
 
 ## User Page
 
